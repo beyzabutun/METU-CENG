@@ -1,0 +1,523 @@
+\documentclass[10pt,a4paper, margin=1in]{article}
+\usepackage{fullpage}
+\usepackage{amsfonts, amsmath, pifont}
+\usepackage{amsthm}
+\usepackage{graphicx}
+
+\usepackage{float}
+
+\usepackage[utf8]{inputenc}
+\usepackage{tkz-euclide}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.13}
+
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={210mm,297mm},
+ left=10mm,
+ right=10mm,
+ top=10mm,
+ bottom=10mm,
+ }
+ % Write both of your names here. Fill exxxxxxx with your ceng mail address.
+ \author{
+  Aydın, Onur\\
+  \texttt{e217126@metu.edu.tr}
+  \and
+  Bütün, Beyza\\
+  \texttt{e2171411@ceng.metu.edu.tr}
+}
+\title{CENG 384 - Signals and Systems for Computer Engineers \\
+Spring 2020 \\
+Written Assignment 2}
+
+\begin{filecontents}{q3.dat}
+ n   xn
+ -2  2
+ -1  4
+ 0  1
+ 1  2
+\end{filecontents}
+
+
+\begin{document}
+\maketitle
+
+
+
+\noindent\rule{19cm}{1.2pt}
+
+\begin{enumerate}
+
+\item %write the solution of q1
+    \begin{enumerate}
+    % Write your solutions in the following items.
+    \item %write the solution of q1a
+    \textbf{Memory:}
+    
+    The output of the system must not depend on an input which is from past or future time if it is memoryless.
+    
+    Therefore, $y[n]=h(x[n-n_0]) for \exists{n_0} \neq 0$ breaks the memoryless property.
+    \vspace{0.25cm}
+    
+    In this question, $n_0 \in [1,\infty)$. Hence, the system has memory.
+    
+
+    \textbf{Stability:}
+    
+    A system must be able to generate bounded output with a given bounded input (BIBO).
+    
+    Let a boundary B which is a finite number, with $|x[n-k]| \leq B, k \in Z $
+    
+    When $B \neq 0$, $\sum_{k=1}^{\infty} x[n-k]$, diverges to indefinite number. Hence, the system is not stable.
+    
+  
+    \textbf{Causality:}
+    
+    A system shouldn't depend on the future inputs in order to be causal.
+    
+    Therefore, $y[n] = h(x[n-n_0]), \exists{n_0} \leq 0 $ breaks the causality.
+    \vspace{0.25cm}
+    
+    In this system, 
+    
+    $\sum_{k=1}^{\infty} x[n-k]$, k starts at 1. Hence output only depends on the past time so the system is causal.
+    
+    \textbf{Linearity:}
+    We need to check the superposition property to verify linearity.
+    
+    $y_1[n]$ = $\sum_{k=1}^{\infty} x_1[n-k]$ 
+    
+    $y_2[n]$ = $\sum_{k=1}^{\infty} x_2[n-k]$ 
+    \vspace{0.25cm}
+    
+    $a_1 y_1[n]$ = $\sum_{k=1}^{\infty} a_1 x_1[n-k]$ = $a_1 \sum_{k=1}^{\infty} x_1[n-k]$
+    
+    $a_2 y_2[n]$ = $\sum_{k=1}^{\infty} a_2 x_2[n-k]$ =  $a_2 \sum_{k=1}^{\infty} x_2[n-k]$
+    
+    If we add them, we get
+    
+    $a_1 y_1[n] + a_2 y_2[n]$ = $\sum_{k=1}^{\infty} (a_1 x_1[n-k] + a_2 x_2[n-k])$ = $a_1 \sum_{k=1}^{\infty} x_1[n-k]$ + $a_2 \sum_{k=1}^{\infty} x_2[n-k]$
+    \vspace{0.25cm}
+    
+    As you can see, this system holds superposition property, hence, the system is linear.
+    
+    
+    \textbf{Invertibility:}
+    
+    If the system is invertible, it shall map all the distinct inputs to distinct outputs (1-1 and onto). We need to manipulate the system equation so that we can map inputs of y's to  output x[n].
+    
+    The upper boundary of the system goes to infinity.Therefore, If we iterate the $y[n]$ one more step, we get,
+    
+    $y[n+1] = \sum_{k=1}^{\infty} x[n+1-k]$
+    
+    $y[n+1] = \sum_{k=0}^{\infty} x[n-k]$
+    
+    $y[n+1] = x[n] + \sum_{k=1}^{\infty} x[n-k]$
+    
+    $y[n+1] = x[n] + y[n]$
+    
+    $x[n] = y[n+1] - y[n]$
+    
+    Hence, the system is invertible.
+
+    \textbf{Time invariance:} 
+    
+    We need to shift both inputs and outputs independently and verify they are equal.
+    
+    Let $x_1[n]=x[n-n_0]$ then
+    \vspace{0.25cm}
+    
+    $y_1[n]=\sum_{k=1}^{\infty} x_1[n-k]$ = $ \sum_{k=1}^{\infty} x[n-n_0-k]$ =? $y[n-n_0]$ = $ \sum_{k=1}^{\infty} x[n-n_0-k]$ 
+    
+    As you can see, this holds the equality. Therefore, this system is time invariant.
+     
+    \item %write the solution of q1b
+    
+    \textbf{Memory:}
+    
+    The output of the system must not depend on an input which is from past or future time if it is memoryless.
+    \vspace{0.25cm}
+    
+    $y(t) = tx(2t+3)$ depends on future time when $t>-3$, 
+    and dependent on past time when $t<-3$. Hence, it has memory.
+    
+
+    \textbf{Stability:}
+    
+    The system has t value as coefficient of x(t). Therefore, as time goes to infinity, we can bound it to a finite interval because time coefficient will multiply any finite output to either positive or negative infinity. Hence, the system is unstable.
+    
+
+    \textbf{Causality:}
+    
+    The system is causal, when it doesn't depend on the any future input.
+    
+    $y(t)=h(x(t-t_0))$, if we place any $t_0>-3$ such as 1, we get
+    
+    $y(1)=h(x(5))$, which breaks the causality. Hence, the system is not causal.
+
+    \textbf{Linearity:}
+    
+    We need to check the superposition property to verify linearity.
+    
+    $y_1(t) = tx_1(2t+3)$ 
+    
+    $y_2(t) = tx_2(2t+3)$ 
+    \vspace{0.25cm}
+    
+    $a_1 y_1(t) = a_1tx_1(2t+3)$ 
+    
+    $a_2 y_2(t) = a_2tx_2(2t+3)$ 
+    
+    If we sum, we get
+    \vspace{0.25cm}
+    
+    $a_1 y_1(t) + a_2 y_2(t)$ = $t(a_1x_1(2t+3)+a_2x_2(2t+3))$
+    $=a_1tx_1(2t+3)+a_2tx_2(2t+3)$ 
+    Thus, this system is linear.
+    
+    \textbf{Invertibility:}
+    
+    Given $y(t) = h(x(t))$, if $\exists$ a unique $h^{-1}$ such that 
+    $x(t) = h^{-1}(y(t))$ then the system is invertible. 
+    This system is invertible since $x(t) = \dfrac{2}{t-3}y((t-3)/2)$.  
+    
+    \textbf{Time invariance:}
+    
+    Assume that $x_1(2t+3)=x(2t-2t_0+3)$ then
+    \vspace{0.25cm}
+    
+    $y_1(t)=tx_1(2t+3)=tx(2t-2t_0+3)$ =? $y(t-t_0)=(t-t_0)x(2t-2t_0+3)$
+    
+    Since $tx(2t-2t_0+3) \neq (t-t_0)x(2t-2t_0+3)$, this system is not time invariant. 
+    
+    \end{enumerate}
+
+
+\item %write the solution of q2
+    \begin{enumerate}
+    % Write your solutions in the following items.
+    \item %write the solution of q2a
+    
+    $y'(t) = x(t) - 5y(t)$
+        
+    $y'(t) + 5y(t) = x(t)$
+    
+    \item %write the solution of q2b
+    Because the system is initially at rest, y(0) = $y'(0)$ = ... = 0
+    
+    y(t) = $y_p(t)+y_h(t)$
+    \vspace{0.25cm}
+    
+    Let's start with homogeneous equation.
+    
+    $y_h(t)=Ae^{\lambda t}$
+    If we replace the $y_h(t)$ in the given equation, we will have
+    
+    $\lambda Ae^{\lambda t}+5Ae^{\lambda t}=0$
+    
+    $Ae^{\lambda t}(\lambda+5)=0$
+    
+    $\lambda+5=0\implies \lambda=-5$
+    
+    $y_h(t)=Ae^{-5t}$
+    \vspace{0.25cm}
+    
+    Finding the particular solution;
+    
+    Since we will give input to the system after $t=0$, we can discard the $u(t)$ part because it is equal to 1 in the given time interval.
+    
+    $x(t)=e^{-t}+e^{-3t}$, for $t>0$
+    
+    
+    Let $y_p(t) = Ke^{-t} + Me^{-3t}$.
+    
+    $-Ke^{-t}-3Me^{-3t}+5Ke^{-t}+5Me^{-3t} = e^{-t} + e^{-3t}$ 
+    
+    $(-K+5K)e^{-t} + (5M-3M)e^{-3t} = e^{-t} + e^{-3t}$
+    
+    $4Ke^{-t} = e^{-t} \implies 4K=1 \implies K = \dfrac{1}{4} $
+    
+    $2Me^{-3t}= e^{-3t} \implies 2M=1 \implies M = \dfrac{1}{2}$
+    
+    $y_p(t) = \dfrac{1}{4}e^{-t} + \dfrac{1}{2}e^{-3t}\quad, t>0$
+    
+    $y(t) = y_h(t) + y_p(t)$
+    
+    $y(t) = Ae^{-5t} + \dfrac{1}{4}e^{-t} + \dfrac{1}{2}e^{-3t} \quad, t>0$
+    
+    Stating that the system is initially at rest means there are no inputs at the beginning. Therefore, $y(0) = 0$.
+    
+    $y(0)=A+\dfrac{1}{4}+\frac{1}{2} = 0 \implies A =\frac{-3}{4}$
+    
+    $y(t)= \frac{-3}{4}e^{-5t}+ \frac{1}{4}e^{-t} + \frac{1}{2}e^{-3t} \quad ,t>0$
+    
+    When we add the $u(t)$ that we omitted before,
+    
+    $y(t)=[\frac{-3}{4}e^{-5t}+\frac{1}{4}e^{-t}+\frac{1}{2}e^{-3t}]u(t)$
+    
+    \end{enumerate}
+
+\item %write the solution of q3     
+    \begin{enumerate}
+    % Write your solutions in the following items.
+    \item %write the solution of q3a
+    
+    $y[n] = \int_{-\infty}^{\infty}x[k]h[n-k]$ = $\int_{-\infty}^{\infty}x[n-k]h[k]$ = x[n]*h[n]
+    \vspace{0.25cm}
+    
+    y[n] = h[1]x[n-1] + h[-1]x[n+1] (zero, for other values of k)
+    
+    y[n] = x[n-1]+2x[n+1] 
+    
+    And we know that x[n] = $2\delta[n]+\delta[n+1]$
+    
+    so we get
+    
+    y[n] = $2\delta[n-1]+\delta[n]+2(2\delta[n+1]+\delta[n+2])$
+    
+    y[n] = $2\delta[n-1]+\delta[n]+4\delta[n+1]+2\delta[n+2]$
+    
+        \begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}[scale=1.5] 
+      \begin{axis}[
+          axis lines=middle,
+          xlabel={$n$},
+          ylabel={$\boldsymbol{y[n] }$},
+          xtick={ -2, -1, 0, 1},
+          ymin=-1, ymax=4,
+          xmin=-3, xmax=2,
+          every axis x label/.style={at={(ticklabel* cs:1.05)}, anchor=west,},
+          every axis y label/.style={at={(ticklabel* cs:1.05)}, anchor=south,},
+          grid,
+        ]
+        \addplot [ycomb, black, thick, mark=*] table [x={n}, y={xn}] {q3.dat};
+      \end{axis}
+    \end{tikzpicture}
+    \caption{$n$ vs. $y[n]$.}
+    \label{fig:q3}
+    \end{figure}
+    
+    \item %write the solution of q3b
+    $\frac{dx(t)}{dt}=\delta(t-1)+\delta(t+1)$
+    
+    y(t) = $\int_{0}^{\infty}e^{-\tau}\sin{\tau}\delta(t-1-\tau)d\tau$ + $\int_{0}^{\infty}e^{-\tau}\sin{\tau}\delta(t+1-\tau)d\tau$
+    
+    y(t) = h(t-1)+h(t+1)
+    
+    y(t) = $(e^{-t+1}\sin{(t-1)})u(t-1)+(e^{-t-1}\sin(t+1))u(t+1)$
+    
+    \end{enumerate}
+
+\item %write the solution of q4
+    \begin{enumerate}
+    % Write your solutions in the following items.
+    \item %write the solution of q4a
+    $y(t)$ = $\int_{-\infty}^{\infty}e^{-2\tau}u(\tau)e^{\tau-t}u(t-\tau)d\tau$
+    where $u(\tau)u(t-\tau)=u(t)$,
+    \vspace{0.25cm}
+    
+    and we can omit it from the equation by changing boundaries accordingly
+    \vspace{0.25cm}
+    
+    = $\int_{0}^{t} e^{-\tau-t}d\tau$
+    = $e^{-t}\int_{0}^{t} e^{-\tau}d\tau$
+    = $e^{-t}(1-e^{-t})u(t)$
+    = $(e^{-t}-e^{-2t})u(t)$
+    \item %write the solution of q4b
+    
+    y(t) = x(t)*h(t)
+    
+    y(t) = $\int_{-\infty}^{\infty}x(t-\tau)h(\tau)d\tau$
+    
+    y(t) = $\int_{0}^{\infty}e^{3\tau}(u(t-\tau)-u(t-1-\tau))d\tau$
+    \vspace{0.25cm}
+    
+    For $t\leq 0$, y(t)=0 because x(t) and h(t) don't intersect at that area.
+    \vspace{0.25cm}
+    
+    For $0 \leq t \leq 1$, x(t)=1
+    
+    y(t) = $\int_{0}^{t}e^{3\tau}d\tau$ = $e^{3t}/3 - 1/3$
+    \vspace{0.25cm}
+    
+    For $t > 1$, x(t)=1
+    
+    y(t) = $\int_{t-1}^{t}e^{3\tau}d\tau$ = $e^{3t}/3 - e^{3(t-1)}/3$
+    \vspace{0.25cm}
+
+    Combining all three cases we get
+    
+    $
+x(t)
+\begin{cases} 
+      0 & t \leq 0 \\
+      e^{3t}/3 - 1/3 & 0 < t \leq 1 \\
+      (e^{3t} - e^{3(t-1)})/3 & t> 1  \\
+   \end{cases}
+$
+    
+    
+    \end{enumerate}
+
+\item %write the solution of q5
+    \begin{enumerate}
+    % Write your solutions in the following items.
+    \item %write the solution of q5a
+    First we should shift the equation by 2 in order to get y[n] in terms of its predecessors.
+    $2y[n]-3y[n-1]+1=0$, in order to get a solution in terms of $c\lambda^{n}$, we replace $y[n]$ with $\lambda$.
+    \vspace{0.25cm}
+    
+    $2\lambda^2 - 3\lambda + 1 = 0$
+    
+    $(2\lambda-1)(\lambda-1) = 0$
+    
+    $\lambda_{1}=1/2$ and $\lambda_{2}=1$
+    
+    $y[n] = c_1*(1/2)^{n}+c_2*1^{n}$
+    
+    $y[0] = c_1 + c_2 = 1$
+    
+    $y[1] = 1/2c_1 + c_2 = 0$
+    
+    $c_1 = 2$
+    
+    $c_2 = -1$
+    
+    $y[n] = 2(1/2)^{n}-1$ = $2^{1-n}-1$
+    
+    \item %write the solution of q5b
+    From given equation, we will find homogenous solution.
+    
+    y(t) = $Ke^{\lambda t}$
+    
+    $y'(t)$ = $K \lambda e^{\lambda t}$
+    
+    $y''(t)$ = $K \lambda^2 e^{\lambda t}$
+    
+    $y^{(3)}(t)$ = $K \lambda^3 e^{\lambda t}$
+    
+    From these equations, we get
+    
+    $e^{\lambda t}K(\lambda^3 -3\lambda^2 +4\lambda - 2)$=0, then
+    
+    $\lambda^3 -3\lambda^2 +4\lambda - 2 = 0$
+    
+    After solving equation, we get $\lambda_1=1, \lambda_2=1+i$ and $\lambda_3=1-i$
+    \vspace{0.25cm}
+    
+    $y(t)$ = $K_1e^{t} + K_2e^{(1+i)t} + K_3e^{(1-i)t}$
+    
+    $y'(t)$ = $K_1e^{t} + (1+i)K_2e^{(1+i)t} + (1-i)K_3e^{(1-i)t}$
+    
+    $y''(t)$ = $K_1e^{t} + (1+i)^2K_2e^{(1+i)t} + (1-i)^2K_3e^{(1-i)t}$
+    \vspace{0.25cm}
+    
+    Then
+    
+    y(0) = $K_1+K_2+K_3$ = 3
+    
+    $y'(0)$ = $K_1+(1+i)K_2+(1-i)K_3$ = 1
+    
+    $y''(0)$ = $K_1+(1+i)^2K_2+(1-i)^2K_3$ = 2
+    
+    From these equations, we got 2 different equations as
+    
+    $-iK_2+iK_3$ = 2 $\rightarrow$  $K_3-K_2$ = -2i
+    
+    $(1-i)K_2+(1+i)K_3 $ = -1 $\rightarrow$ $iK_3+K_2$ = -(1+i)/2
+    
+    $K_3$ = $\frac{-3}{2}-i$, $K_2$ = $\frac{-3}{2}+i$ and $K_1=6$
+    \vspace{0.25cm}
+    
+    Finally the equation will be like
+    
+    $y(t)$ = $K_1e^{t} + K_2e^{(1+i)t} + K_3e^{(1-i)t}$
+    
+    y(t) = $6 e^t$ + $(\frac{-3}{2}+i) e^{(1+i)t}$ + $(\frac{-3}{2}-i) e^{(1-i)t}$
+    
+    
+    
+    
+    
+    
+    
+    \end{enumerate}
+
+
+\item %write the solution of q6
+    \begin{enumerate}
+    % Write your solutions in the following items.
+    \item %write the solution of q6a
+    
+    First the system is initially at rest, so we can conclude that x[n] = 0 and h[n] = 0 for $n<0$.
+    
+    x[n]=w[n]-1/2w[n-1]
+    
+    w[n]=x[n]*$h_0[n]$
+    \vspace{0.25cm}
+    
+    Lets assume x[n]=$\delta[n]$. Then we get w[n]=$h_0[n]$
+    
+    So $h_0[n]$-1/2$h_0[n-1]$ = $\delta[n]$
+    
+    $h_0[n]$ = 1/2$h_0[n-1]$ + $\delta[n]$
+    
+    From this equation, we can find a pattern as
+    \vspace{0.25cm}
+    
+    $h_0[0]$ = 1/2$h_0[-1]$+$\delta[0]$ = 1
+    
+    $h_0[1]$ = 1/2$h_0[0]$+$\delta[1]$ = 1/2
+    
+    $h_0[2]$ = 1/2$h_0[1]$+$\delta[2]$ = 1/4
+    
+        .
+    
+        .
+    
+        .
+    
+    $h_0[n]$ = $(1/2)^n$u[n]
+    
+    
+    
+    \item %write the solution of q6b
+    Assume two serial LTI systems have impulse responses $h_1[n]$ and $h_2[n]$ respectively. The overall impulse response $h[n]$ will be equal to $h_1[n]*h_2[n]$.
+    \vspace{0.25cm}
+    
+    Therefore, the overall impulse response of the given discrete time LTI system can be specified as:
+    \vspace{0.25cm}
+    
+    $h[n]=h_0[n]*h_0[n]$ Then,
+    
+    $h[n]$ = $((1/2)^n*(1/2)^n)$u[n] = $(1/4)^n$u[n]
+    
+    \item %write the solution of q6c
+    From the first response we have
+    
+    x[n] + 1/2w[n-1] = w[n]
+    \vspace{0.25cm}
+    
+    From the second response we have
+    
+    w[n] + 1/2y[n-1] = y[n]
+    
+    w[n] = y[n] - 1/2y[n-1]
+    \vspace{0.25cm}
+    
+    If we solve these equations we have
+    
+    x[n] + 1/2(y[n-1] - 1/2y[n-2]) = y[n] - 1/2y[n-1]
+    
+    x[n] = y[n] - y[n-1] + 1/4y[n-2]
+    
+    \end{enumerate}
+
+\end{enumerate}
+\end{document}
+
+
